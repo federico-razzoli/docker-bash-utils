@@ -8,6 +8,7 @@
 # To use these aliases and functions, remember the following acronyms:
 # rm = remove
 # ls = list
+# cnt = count
 # get = print a property
 # img = image(s)
 # cont = container(s)
