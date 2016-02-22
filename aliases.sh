@@ -1,8 +1,14 @@
 #! /bin/bash
 
+# This file contains (ha, ha) Bash aliases and functions that are useful when working with Docker.
+# All alias and function names start with "dkr-" for your convenience.
+# You can add this file to your .bashrc, like so:
+# /path/to/aliases.sh >> ~/.bashrc
+
 # To use these aliases and functions, remember the following acronyms:
 # rm = remove
 # ls = list
+# get = print a property
 # img = image(s)
 # cont = container(s)
 # idle = stopped (not paused or doing nothing)
@@ -24,6 +30,7 @@ alias dkr-rm-unused-img="docker rmi $(docker images | grep "^<none>" | awk '{pri
 # * TAGS
 
 # show tags for specified image
+# @param: image-id
 function dkr-ls-tag-by-img {
 	docker images | grep -i "$1" | awk '{print $2}'
 }
@@ -32,8 +39,14 @@ function dkr-ls-tag-by-img {
 # * CONTAINERS
 
 # show all containers based on specified image
+# @param: imagege-id
 function dkr-ls-cont-by-img {
 	docker ps -a | grep -i "$1" | awk '{print $1}'
+}
+# show specified container's IP address
+# @param: container-id
+function dkr-get-ip {
+	"docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1"
 }
 # remove ALL containers!
 alias dkr-rm-all-cont="docker rm -f $(docker ps -a -q)"
@@ -47,6 +60,7 @@ alias dkr-unpause="docker unpause $(docker ps -q)"
 # check that all important containers are running before calling this!
 alias dkr-rm-idle-cont="docker rm $(docker ps -a -q)"
 # remove stopped containers based on specified image
+# @param: image-id
 function dkr-rm-cont-by-img {
 	docker rm $(docker ps -a | grep -i "$1" | awk '{print $1}')
 }
