@@ -49,6 +49,11 @@ function dkr-ls-cont-by-img {
 function dkr-get-ip {
 	"docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1"
 }
+# show specified container's volumes
+# @param: container-id
+function dkr-ls-cont-volumes {
+	docker inspect -f '{{ .Volumes }}' $1
+}
 # remove ALL containers!
 alias dkr-rm-all-cont="docker rm -f $(docker ps -a -q)"
 # stop all containers
