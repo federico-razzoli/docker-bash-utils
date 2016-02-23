@@ -47,7 +47,12 @@ function dkr-ls-cont-by-img {
 # show specified container's IP address
 # @param: container-id
 function dkr-get-cont-ip {
-	"docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1"
+	docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1
+}
+# show specified container's ports mapping
+# @param: container-id
+function dkr-get-cont-ports {
+	docker inspect --format '{{ .NetworkSettings.Ports }}' $1
 }
 # show specified container's volumes
 # @param: container-id
